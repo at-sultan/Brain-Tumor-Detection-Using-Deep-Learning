@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tumor Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>MRI Tumor Detection System</h1>
+            <p>Upload an MRI image to detect if there is a tumor and its type.</p>
+        </div>
+
+        <!-- File Upload Form -->
+        <div class="upload-card">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file">Select MRI Image:</label>
+                    <input type="file" id="file" name="file" accept="image/*" required>
+                </div>
+                <button type="submit">Upload and Detect</button>
+            </form>
+        </div>
+
+        {% if result %}
+        <!-- Display Results -->
+        <div class="results">
+            <div class="result-card">
+                <h4 class="result-text">{{ result }}</h4>
+                <p class="confidence-text">Confidence: {{ confidence }}</p>
+                <!-- Use url_for to reference the uploaded image -->
+                <img src="{{ url_for('get_uploaded_file', filename=file_path.split('/')[-1]) }}" alt="Uploaded Image">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
